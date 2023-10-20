@@ -18,6 +18,8 @@ First, we need to do the job of the application, this is necessary since we are 
 http::localhost:5000/analyze?access_token={}&media_id={}  
 
 this will return the average score & magnitude of the sentiment. NB: this will return the individual score & magnitude for each comment and also the calculated average of all the individual score and magnitude.  The result can be seen below;  
+
+
 ![/analyze](./result_images/analyze.png)  
 
 ## /retrieve-all  
@@ -26,7 +28,9 @@ this will return the average score & magnitude of the sentiment. NB: this will r
 http::localhost:5000/retrieve-all?media_id={}  
 
 this will return all the stored analysis for the provided media_id.  The result can be see below;  
-![/analyze](./result_images/retrieve-all.png)  
+
+
+![/retrieve-all](./result_images/retrieve-all.png)  
 
 ## /retrieve-range  
 
@@ -34,7 +38,9 @@ this will return all the stored analysis for the provided media_id.  The result 
 http::localhost:5000/retrieve-range?media_id={}&start={}&end={}  
 
 this will return all the stored analysis for the provided media_id for the duration of the start & end. NB: when the analysis is stored into the database, a date field is added which helps this endpoint to get the result for the specified duration.  The result can be see below;  
-![/analyze](./result_images/retrieve-range.png)  
+
+
+![/retrieve-range](./result_images/retrieve-range.png)  
 
 ## /retrieve  
 
@@ -42,23 +48,25 @@ this will return all the stored analysis for the provided media_id for the durat
 http::localhost:5000/retrieve-all?media_id={}  
 
 this will return the latest stored analysis for the provided media_id.  The result can be see below;  
-![/analyze](./result_images/retrieve.png)  
+
+
+![/retrieve](./result_images/retrieve.png)  
 
 ## Summary;  
 In summary, the endpoints are as follows:   
 
-GET /analyze?access_token={}&media_id={} or POST /analyze -d {access_token:"", media_id:""} NB: To fetch and analyze the media comments, and then store the analysis in a NoSQL i.e Mongo DB before returning the analysis back as a response.   
+GET /analyze?access_token={}&media_id={} or POST /analyze -d {access_token:"", media_id:""}  NB: To fetch and analyze the media comments, and then store the analysis in a NoSQL i.e Mongo DB before returning the analysis back as a response.   
 
 
-GET /retrieve-all?media_id={} or POST /analyze -d {media_id:""} NB: Fetches all the analysis done for a specific media.   
+GET /retrieve-all?media_id={} or POST /analyze -d {media_id:""}  NB: Fetches all the analysis done for a specific media.   
 
 
-GET /retrieve?media_id={} or POST /analyze -d {media_id:""} NB: Fetches the most recent analysis done for a specific media.   
+GET /retrieve?media_id={} or POST /analyze -d {media_id:""}  NB: Fetches the most recent analysis done for a specific media.   
 
 
-GET /retrieve-range?media_id={}&start={}&end={} or POST /analyze -d {media_id:"", start:"", end:""} NB: Fetches a range of analysis done for a specific media where start & end are dates in this format: %Y%m%d    
+GET /retrieve-range?media_id={}&start={}&end={} or POST /analyze -d {media_id:"", start:"", end:""}  NB: Fetches a range of analysis done for a specific media where start & end are dates in this format: %Y%m%d    
 
 
-#Important  
+# Important  
 Guys, please bear in mind that this is considered a prototype, no matter how meticulous I was in writing this, there could be bugs. Hence, it should be tested and corrected accordingly. Also, you need to install the various tools for this program to work. You can reach me for assistance.
 
