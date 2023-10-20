@@ -45,7 +45,7 @@ this will return all the stored analysis for the provided media_id for the durat
 ## /retrieve  
 
 
-http::localhost:5000/retrieve-all?media_id={}  
+http::localhost:5000/retrieve?media_id={}  
 
 this will return the latest stored analysis for the provided media_id.  The result can be see below;  
 
