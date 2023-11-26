@@ -1,0 +1,89 @@
+openapi: 3.0.0
+info:
+  title: SentInsta
+  description: an API to load and analyse the sentiment of instagram coments
+  version: "0.1"
+servers:
+- url: https://virtserver.swaggerhub.com/GR33NMAYHEM_1/Project-Zebra/0.1
+  description: SwaggerHub API Auto Mocking
+- url: 3.15.39.251:8080
+  description: Zebra Cloud Server
+paths:
+  /analyze:
+    get:
+      description: fetch a comment and analyse sentiment
+      operationId: analyze_get
+      parameters:
+      - name: access_token
+        in: query
+        description: access token for the instagram account
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: media_id
+        in: query
+        description: media ID for which comments need analysis
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successfully acquired media comments for analysis
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/inline_response_200'
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+components:
+  schemas:
+    analyze_sentiment_scores:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+        text:
+          type: string
+        score:
+          type: number
+        date:
+          type: integer
+      example:
+        date: 1
+        score: 6.02745618307040320615897144307382404804229736328125
+        id: id
+        text: text
+    inline_response_200:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+        average_magnitude:
+          type: number
+        sentiment_scores:
+          type: array
+          items:
+            $ref: '#/components/schemas/analyze_sentiment_scores'
+      example:
+        id: id
+        average_magnitude: 0.80082819046101150206595775671303272247314453125
+        sentiment_scores:
+        - date: 1
+          score: 6.02745618307040320615897144307382404804229736328125
+          id: id
+          text: text
+        - date: 1
+          score: 6.02745618307040320615897144307382404804229736328125
+          id: id
+          text: text
+
