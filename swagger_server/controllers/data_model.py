@@ -34,6 +34,7 @@ def convert_comments(comments):
 def convert_to_comments(comments):
     comments_list = []
     for comment in comments:
+        print(comment)
         comment_obj = InstagramComments(comment['fb_id'], comment['text'], comment['creation_time'],
                                         comment['sentiment_score'], comment['magnitude'])
         comments_list.append(comment_obj)
@@ -94,10 +95,9 @@ def get_latest_data(media_id=""):  # get the last analyzed data for the media id
 
     # pull the data field from the fetched result
     data = media.get('comments', [])
-
     # check to see if the fetched array has data and return the latest/last analysis
     if len(data) > 0:
-        return data[-1]
+        return convert_to_comments([data[0]])
     data = convert_to_comments(data)
     return data
 

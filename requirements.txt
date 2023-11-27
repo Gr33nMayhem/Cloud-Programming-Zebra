@@ -3,6 +3,7 @@ connexion[flask]==2.9.0
 python_dateutil == 2.6.0
 setuptools >= 21.0.0
 swagger-ui-bundle >= 0.0.2
+markupsafe==2.0.1
 flask
 requests
 google-cloud

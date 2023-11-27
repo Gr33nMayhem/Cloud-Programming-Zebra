@@ -32,7 +32,7 @@ def get_analysis_all_get(media_id=None):  # noqa: E501
 
     :rtype: List[InlineResponse200]
     """
-    return 'do some magic!'
+    return get_analysis_all(media_id)
 
 
 def get_analysis_all_post(media_id=None):  # noqa: E501
@@ -45,7 +45,7 @@ def get_analysis_all_post(media_id=None):  # noqa: E501
 
     :rtype: List[InlineResponse200]
     """
-    return 'do some magic!'
+    return get_analysis_all(media_id)
 
 
 def get_analysis_all(media_id):

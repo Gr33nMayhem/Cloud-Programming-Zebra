@@ -26,5 +26,5 @@ def analyze_sentiments(comments):
 def get_average_magnitude(comments):
     total_magnitude = 0
     for comment in comments:
-        total_magnitude += comment.magnitude
+        total_magnitude += comment.sentiment_score
     return total_magnitude / len(comments)
