@@ -69,7 +69,9 @@ class TestDefaultController(BaseTestCase):
 
         
         """
-        query_string = [('media_id', 'media_id_example')]
+        query_string = [('media_id', 'media_id_example'),
+                        ('start_time', 56),
+                        ('end_time', 56)]
         response = self.client.open(
             '/GR33NMAYHEM_1/Project-Zebra/0.1/get_analysis_range',
             method='GET',
@@ -82,7 +84,9 @@ class TestDefaultController(BaseTestCase):
 
         
         """
-        query_string = [('media_id', 'media_id_example')]
+        query_string = [('media_id', 'media_id_example'),
+                        ('start_time', 56),
+                        ('end_time', 56)]
         response = self.client.open(
             '/GR33NMAYHEM_1/Project-Zebra/0.1/get_analysis_range',
             method='POST',

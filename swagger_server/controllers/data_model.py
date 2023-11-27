@@ -78,7 +78,7 @@ def get_all_data(media_id=""):  # get all the analyzed data for the media id
         return {"error": "Unable to retrieve data"}
 
     # pull the data field from the fetched result
-    data = media.get('data', [])
+    data = media.get('comments', [])
     data = convert_to_comments(data)
     return data
 
@@ -93,7 +93,7 @@ def get_latest_data(media_id=""):  # get the last analyzed data for the media id
         return {"error": "Unable to retrieve data"}
 
     # pull the data field from the fetched result
-    data = media.get('data', [])
+    data = media.get('comments', [])
 
     # check to see if the fetched array has data and return the latest/last analysis
     if len(data) > 0:
@@ -126,11 +126,11 @@ def get_data_range(media_id="", start="", end=""):
 
     if media:
         # Get the 'data' array from the document
-        data_array = media.get('data', [])
+        data_array = media.get('comments', [])
 
         # Loop through the 'data' array and select objects with dates in the specified range
         for data_item in data_array:
-            date_str = data_item.get('date')
+            date_str = data_item.get('creation_time')
             if date_str:
                 date = int(date_str)
                 if start <= date <= end:

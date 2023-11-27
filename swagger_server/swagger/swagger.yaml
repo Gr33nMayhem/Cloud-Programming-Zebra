@@ -191,6 +191,22 @@ paths:
         explode: true
         schema:
           type: string
+      - name: start_time
+        in: query
+        description: start time of comments range
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: end_time
+        in: query
+        description: end time of comments range
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
       responses:
         "200":
           description: Successfully returned media comments with analysis
@@ -216,6 +232,22 @@ paths:
         explode: true
         schema:
           type: string
+      - name: start_time
+        in: query
+        description: start time of comments range
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: end_time
+        in: query
+        description: end time of comments range
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
       responses:
         "200":
           description: Successfully returned media comments with analysis
