@@ -1,14 +1,15 @@
 # Replace this function with code to fetch Instagram comments using access_token, instagram_id, and media_id
 import requests
+import time
 import datetime
 
 
 class InstagramComments:
     # Constructor to save id, text and time of comment
-    def __int__(self, id, text, time, sentiment_score=-1, magnitude=-1):
-        self.fb_id = id
+    def __init__(self, fb_id, text, creation_time, sentiment_score=-1, magnitude=-1):
+        self.fb_id = fb_id
         self.text = text
-        self.creation_time = time
+        self.creation_time = creation_time
         self.sentiment_score = sentiment_score
         self.magnitude = magnitude
 
@@ -34,10 +35,10 @@ def fetch_instagram_comments(access_token, media_id):
     for comment in comments_list:
         id = comment['id']
         text = comment['text']
-        time = comment['timestamp']
+        creation_time = comment['timestamp']
         # convert date string like "2022-11-13T17:40:33+0000" to unix time stamp
-        time = time.mktime(datetime.datetime.strptime(time, "%Y-%m-%dT%H:%M:%S+0000").timetuple())
-        obj = InstagramComments(id, text, time)
+        creation_time = time.mktime(datetime.datetime.strptime(creation_time, "%Y-%m-%dT%H:%M:%S+0000").timetuple())
+        obj = InstagramComments(id, text, creation_time)
         comments.append(obj)
 
     return comments

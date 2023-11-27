@@ -9,7 +9,7 @@ load_dotenv()
 
 # Connect to MongoDB
 hostname = os.getenv('MONGO_DB_NAME')
-port = os.getenv('MONGO_DB_PORT')
+port = int(os.getenv('MONGO_DB_PORT'))
 username = os.getenv('MONGO_DB_USERNAME')
 password = os.getenv('MONGO_DB_PASSWORD')
 client = pymongo.MongoClient(hostname, port, username=username, password=password)
@@ -17,6 +17,7 @@ client = pymongo.MongoClient(hostname, port, username=username, password=passwor
 db = client['zebra']
 collection = db['user1']
 sentiment_data = db['comment_sentiment_data']  # collection name
+sentiment_data.create_index([("media_id", pymongo.ASCENDING)], unique=True, name="media_id_index")
 
 
 # Convert comments objects to a list of dictionaries for storage
@@ -42,7 +43,7 @@ def convert_to_comments(comments):
 def store_comments(media_id, comments):
     comments = convert_comments(comments)
     # check if the media id exists
-    media = sentiment_data.find_one({"_id": media_id})
+    media = sentiment_data.find_one({'media_id': media_id})
 
     if media:
         print("media exists")
@@ -50,21 +51,19 @@ def store_comments(media_id, comments):
         print("media does not exist")
         # preparing new sentiment data
         data = {
-            '_id': media_id,
-            'comments': [comments]
+            'media_id': media_id,
         }
 
         # inserting new sentiment data
         sentiment_data.insert_one(data)
 
     print("Updating comments")
-    # preparing update query
+    # unset all old comments and push new list of comments
     update_query = {
-        '$push': {'comments': comments}
+        '$set': {'comments': comments}
     }
-
     # updating the media id with the new analysis
-    sentiment_data.update_one({'_id': media_id}, update_query)
+    sentiment_data.update_one({'media_id': media_id}, update_query)
 
     return comments
 
@@ -72,7 +71,7 @@ def store_comments(media_id, comments):
 def get_all_data(media_id=""):  # get all the analyzed data for the media id
 
     # fetch the data for the media id
-    media = sentiment_data.find_one({"_id": media_id})
+    media = sentiment_data.find_one({'media_id': media_id})
 
     # check if media exists
     if not media:
@@ -87,7 +86,7 @@ def get_all_data(media_id=""):  # get all the analyzed data for the media id
 def get_latest_data(media_id=""):  # get the last analyzed data for the media id
 
     # fetch the data for the media id
-    media = sentiment_data.find_one({"_id": media_id})
+    media = sentiment_data.find_one({'media_id': media_id})
 
     # check if media exists
     if not media:
@@ -112,7 +111,7 @@ def get_data_range(media_id="", start="", end=""):
 
     # Define the query to find documents by media_id
     query = {
-        '_id': media_id
+        'media_id': media_id
     }
 
     # Find the document based on the media_id

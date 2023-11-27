@@ -17,7 +17,7 @@ def analyze_sentiments(comments):
             document=language_v1.Document(content=comment.text, type_=language_v1.Document.Type.PLAIN_TEXT))
 
         sentiment = response.document_sentiment
-        comment.score = sentiment.score
+        comment.sentiment_score = sentiment.score
         comment.magnitude = sentiment.magnitude
 
     return comments

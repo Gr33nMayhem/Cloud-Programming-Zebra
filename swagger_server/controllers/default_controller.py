@@ -24,6 +24,7 @@ def analyze_get(access_token=None, media_id=None):  # noqa: E501
 
     # Fetch instagram comments
     comments = fetch_instagram_comments(access_token, media_id)
+    print(comments)
     comments = analyze_sentiments(comments)
     average_magnitude = get_average_magnitude(comments)
     analyzeSentimentScores_list = []
@@ -31,7 +32,7 @@ def analyze_get(access_token=None, media_id=None):  # noqa: E501
         item = AnalyzeSentimentScores(id=comment.fb_id, text=comment.text, score=comment.sentiment_score,
                                       _date=comment.creation_time)
         analyzeSentimentScores_list.append(item)
-    store_comments(analyzeSentimentScores_list)
+    store_comments(media_id, comments)
     response = InlineResponse200(id=media_id, average_magnitude=average_magnitude,
                                  sentiment_scores=analyzeSentimentScores_list)
 
