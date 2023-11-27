@@ -2,6 +2,7 @@ import connexion
 import six
 
 from swagger_server.controllers.analyze_comments import analyze_sentiments, get_average_magnitude
+from swagger_server.controllers.data_model import store_comments
 from swagger_server.controllers.fetch_comments import fetch_instagram_comments
 from swagger_server.models import AnalyzeSentimentScores
 from swagger_server.models.inline_response200 import InlineResponse200  # noqa: E501
@@ -30,6 +31,7 @@ def analyze_get(access_token=None, media_id=None):  # noqa: E501
         item = AnalyzeSentimentScores(id=comment.fb_id, text=comment.text, score=comment.sentiment_score,
                                       _date=comment.creation_time)
         analyzeSentimentScores_list.append(item)
+    store_comments(analyzeSentimentScores_list)
     response = InlineResponse200(id=media_id, average_magnitude=average_magnitude,
                                  sentiment_scores=analyzeSentimentScores_list)
 
