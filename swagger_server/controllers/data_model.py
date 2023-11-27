@@ -1,38 +1,72 @@
-from pymongo import MongoClient
+import os
 
-client = MongoClient('mongodb://localhost:27017/')  # mongo connection url & port
-db = client['sentiment_analysis']  # database name
+import pymongo
+from dotenv import load_dotenv
 
-sentiment_data = db['sentiment_data']  # collection name
+from swagger_server.controllers.fetch_comments import InstagramComments
+
+load_dotenv()
+
+# Connect to MongoDB
+hostname = os.getenv('MONGO_DB_NAME')
+port = os.getenv('MONGO_DB_PORT')
+username = os.getenv('MONGO_DB_USERNAME')
+password = os.getenv('MONGO_DB_PASSWORD')
+client = pymongo.MongoClient(hostname, port, username=username, password=password)
+
+db = client['zebra']
+collection = db['user1']
+sentiment_data = db['comment_sentiment_data']  # collection name
 
 
-def store_data(media_id, analyzed_obj):  # store the data of the analysis
+# Convert comments objects to a list of dictionaries for storage
+def convert_comments(comments):
+    comments_list = []
+    for comment in comments:
+        comment_dict = {'fb_id': comment.fb_id, 'text': comment.text, 'creation_time': comment.creation_time,
+                        'sentiment_score': comment.sentiment_score, 'magnitude': comment.magnitude}
+        comments_list.append(comment_dict)
+    return comments_list
 
+
+# Convert list of dictionaries to comments objects for analysis
+def convert_to_comments(comments):
+    comments_list = []
+    for comment in comments:
+        comment_obj = InstagramComments(comment['fb_id'], comment['text'], comment['creation_time'],
+                                        comment['sentiment_score'], comment['magnitude'])
+        comments_list.append(comment_obj)
+    return comments_list
+
+
+def store_comments(media_id, comments):
+    comments = convert_comments(comments)
     # check if the media id exists
     media = sentiment_data.find_one({"_id": media_id})
 
     if media:
-
-        # preparing update query
-        update_query = {
-            '$push': {'data': analyzed_obj}
-        }
-
-        # updating the media id with the new analysis
-        sentiment_data.update_one({'_id': media_id}, update_query)
-
+        print("media exists")
     else:
-
+        print("media does not exist")
         # preparing new sentiment data
         data = {
             '_id': media_id,
-            'data': [analyzed_obj]
+            'comments': [comments]
         }
 
         # inserting new sentiment data
         sentiment_data.insert_one(data)
 
-    return analyzed_obj
+    print("Updating comments")
+    # preparing update query
+    update_query = {
+        '$push': {'comments': comments}
+    }
+
+    # updating the media id with the new analysis
+    sentiment_data.update_one({'_id': media_id}, update_query)
+
+    return comments
 
 
 def get_all_data(media_id=""):  # get all the analyzed data for the media id
@@ -46,7 +80,7 @@ def get_all_data(media_id=""):  # get all the analyzed data for the media id
 
     # pull the data field from the fetched result
     data = media.get('data', [])
-
+    data = convert_to_comments(data)
     return data
 
 
@@ -65,12 +99,11 @@ def get_latest_data(media_id=""):  # get the last analyzed data for the media id
     # check to see if the fetched array has data and return the latest/last analysis
     if len(data) > 0:
         return data[-1]
-
+    data = convert_to_comments(data)
     return data
 
 
 def get_data_range(media_id="", start="", end=""):
-
     # convert the start string to int
     start = int(start)
 
@@ -103,11 +136,5 @@ def get_data_range(media_id="", start="", end=""):
                 date = int(date_str)
                 if start <= date <= end:
                     selected_data.append(data_item)
-
+    selected_data = convert_to_comments(selected_data)
     return selected_data
-
-
-
-
-
-
