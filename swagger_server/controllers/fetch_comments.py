@@ -16,7 +16,7 @@ class InstagramComments:
 
 def fetch_instagram_comments(access_token, media_id):
     # define the instagram end point to get the comments
-    instagram_media_comments = f'https://graph.facebook.com/v14.0/{media_id}/comments?access_token={access_token}'
+    instagram_media_comments = f'https://graph.facebook.com/v14.0/{media_id}?fields=comments.limit(100)&access_token={access_token}'
 
     # make the call to request the comments
     response = requests.get(instagram_media_comments)
@@ -26,11 +26,11 @@ def fetch_instagram_comments(access_token, media_id):
 
     # get the json response
     data = response.json()
-
+    print(data)
     # To return all the response object
     # return data
 
-    comments_list = data['data']
+    comments_list = data['comments']['data']
     comments = []
     for comment in comments_list:
         id = comment['id']
