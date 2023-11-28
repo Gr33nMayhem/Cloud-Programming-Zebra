@@ -133,6 +133,7 @@ def get_analysis_range_post(media_id=None, start_time=0, end_time=0):  # noqa: E
 
 def get_analysis_range(media_id, start_time, end_time):
     comments = get_data_range(media_id, start_time, end_time)
+    print(comments)
     return create_response_from_comments(media_id, comments)
 
 
@@ -173,7 +174,6 @@ def retrieve_all_for_media_post(access_token=None, media_id=None):  # noqa: E501
 def retrieve_all(access_token, media_id):
     # Fetch instagram comments
     comments = fetch_instagram_comments(access_token, media_id)
-    print(comments)
     comments = analyze_sentiments(comments)
     average_magnitude = get_average_magnitude(comments)
     analyzeSentimentScores_list = []

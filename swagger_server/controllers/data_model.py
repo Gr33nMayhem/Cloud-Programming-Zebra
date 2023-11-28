@@ -133,7 +133,7 @@ def get_data_range(media_id="", start="", end=""):
             date_str = data_item.get('creation_time')
             if date_str:
                 date = int(date_str)
-                if start <= date <= end:
+                if int(start) <= date <= int(end):
                     selected_data.append(data_item)
     selected_data = convert_to_comments(selected_data)
     return selected_data
