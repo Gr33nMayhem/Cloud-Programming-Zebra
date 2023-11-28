@@ -32,6 +32,8 @@ def get_analysis_all_get(media_id=None):  # noqa: E501
 
     :rtype: List[InlineResponse200]
     """
+    if media_id is None:
+        return InlineResponse200(media_id, 0, [])
     return get_analysis_all(media_id)
 
 
@@ -45,10 +47,13 @@ def get_analysis_all_post(media_id=None):  # noqa: E501
 
     :rtype: List[InlineResponse200]
     """
+    if media_id is None:
+        return InlineResponse200(media_id, 0, [])
     return get_analysis_all(media_id)
 
 
 def get_analysis_all(media_id):
+
     comments = get_all_data(media_id)
     return create_response_from_comments(media_id, comments)
 
@@ -63,6 +68,8 @@ def get_analysis_latest_get(media_id=None):  # noqa: E501
 
     :rtype: List[InlineResponse200]
     """
+    if media_id is None:
+        return InlineResponse200(media_id, 0, [])
     return get_analysis_latest(media_id)
 
 
@@ -76,6 +83,8 @@ def get_analysis_latest_post(media_id=None):  # noqa: E501
 
     :rtype: List[InlineResponse200]
     """
+    if media_id is None:
+        return InlineResponse200(media_id, 0, [])
     return get_analysis_latest(media_id)
 
 
@@ -84,7 +93,7 @@ def get_analysis_latest(media_id):
     return create_response_from_comments(media_id, comments)
 
 
-def get_analysis_range_get(media_id=None, start_time=None, end_time=None):  # noqa: E501
+def get_analysis_range_get(media_id=None, start_time=0, end_time=0):  # noqa: E501
     """get_analysis_range_get
 
     get latest comments with analysis for the media # noqa: E501
@@ -98,10 +107,12 @@ def get_analysis_range_get(media_id=None, start_time=None, end_time=None):  # no
 
     :rtype: List[InlineResponse200]
     """
+    if media_id is None:
+        return InlineResponse200(media_id, 0, [])
     return get_analysis_range(media_id, start_time, end_time)
 
 
-def get_analysis_range_post(media_id=None, start_time=None, end_time=None):  # noqa: E501
+def get_analysis_range_post(media_id=None, start_time=0, end_time=0):  # noqa: E501
     """get_analysis_range_post
 
     get latest comments with analysis for the media # noqa: E501
@@ -115,6 +126,8 @@ def get_analysis_range_post(media_id=None, start_time=None, end_time=None):  # n
 
     :rtype: List[InlineResponse200]
     """
+    if media_id is None:
+        return InlineResponse200(media_id, 0, [])
     return get_analysis_range(media_id, start_time, end_time)
 
 
@@ -135,6 +148,8 @@ def retrieve_all_for_media_get(access_token=None, media_id=None):  # noqa: E501
 
     :rtype: List[InlineResponse200]
     """
+    if media_id is None:
+        return InlineResponse200(media_id, 0, [])
     return retrieve_all(access_token, media_id)
 
 
@@ -150,6 +165,8 @@ def retrieve_all_for_media_post(access_token=None, media_id=None):  # noqa: E501
 
     :rtype: List[InlineResponse200]
     """
+    if media_id is None:
+        return InlineResponse200(media_id, 0, [])
     return retrieve_all(access_token, media_id)
 
 
