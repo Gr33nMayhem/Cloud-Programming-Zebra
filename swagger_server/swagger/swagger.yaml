@@ -1,0 +1,309 @@
+openapi: 3.0.0
+info:
+  title: SentInsta
+  description: an API to load and analyse the sentiment of instagram coments
+  version: "0.1"
+servers:
+- url: https://virtserver.swaggerhub.com/GR33NMAYHEM_1/Project-Zebra/0.1
+  description: SwaggerHub API Auto Mocking
+- url: 3.15.39.251:8080
+  description: Zebra Cloud Server
+paths:
+  /retrieve_all_for_media:
+    get:
+      description: fetch comments for a media and analyze it
+      operationId: retrieve_all_for_media_get
+      parameters:
+      - name: access_token
+        in: query
+        description: access token for the instagram account
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: media_id
+        in: query
+        description: media ID for which comments need analysis
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successfully acquired media comments for analysis
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/inline_response_200'
+                x-content-type: application/json
+        "400":
+          description: Failed to acquire media comments for analysis
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+    post:
+      description: fetch comments for a media and analyze it
+      operationId: retrieve_all_for_media_post
+      parameters:
+      - name: access_token
+        in: query
+        description: access token for the instagram account
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: media_id
+        in: query
+        description: media ID for which comments need analysis
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successfully acquired media comments for analysis
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/inline_response_200'
+                x-content-type: application/json
+        "400":
+          description: Failed to acquire media comments for analysis
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /get_analysis_all:
+    get:
+      description: get all the comment analysis for the media
+      operationId: get_analysis_all_get
+      parameters:
+      - name: media_id
+        in: query
+        description: media ID for which comments are returned
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successfully returned media comments with analysis
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/inline_response_200'
+                x-content-type: application/json
+        "400":
+          description: Failed to find media comments for media ID
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+    post:
+      description: get all the comment analysis for the media
+      operationId: get_analysis_all_post
+      parameters:
+      - name: media_id
+        in: query
+        description: media ID for which comments are returned
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successfully returned media comments with analysis
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/inline_response_200'
+                x-content-type: application/json
+        "400":
+          description: Failed to find media comments for media ID
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /get_analysis_latest:
+    get:
+      description: get latest comments with analysis for the media
+      operationId: get_analysis_latest_get
+      parameters:
+      - name: media_id
+        in: query
+        description: media ID for which comments are returned
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successfully returned media comments with analysis
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/inline_response_200'
+                x-content-type: application/json
+        "400":
+          description: Failed to find media comments for media ID
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+    post:
+      description: get latest comments with analysis for the media
+      operationId: get_analysis_latest_post
+      parameters:
+      - name: media_id
+        in: query
+        description: media ID for which comments are returned
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successfully returned media comments with analysis
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/inline_response_200'
+                x-content-type: application/json
+        "400":
+          description: Failed to find media comments for media ID
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /get_analysis_range:
+    get:
+      description: get latest comments with analysis for the media
+      operationId: get_analysis_range_get
+      parameters:
+      - name: media_id
+        in: query
+        description: media ID for which comments are returned
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: start_time
+        in: query
+        description: start time of comments range
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: end_time
+        in: query
+        description: end time of comments range
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Successfully returned media comments with analysis
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/inline_response_200'
+                x-content-type: application/json
+        "400":
+          description: Failed to find media comments for media ID
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+    post:
+      description: get latest comments with analysis for the media
+      operationId: get_analysis_range_post
+      parameters:
+      - name: media_id
+        in: query
+        description: media ID for which comments are returned
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: start_time
+        in: query
+        description: start time of comments range
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: end_time
+        in: query
+        description: end time of comments range
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Successfully returned media comments with analysis
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/inline_response_200'
+                x-content-type: application/json
+        "400":
+          description: Failed to find media comments for media ID
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+components:
+  schemas:
+    retrieve_all_for_media_sentiment_scores:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+        text:
+          type: string
+        score:
+          type: number
+        date:
+          type: integer
+      example:
+        date: 1
+        score: 6.027456183070403
+        id: id
+        text: text
+    inline_response_200:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+        average_magnitude:
+          type: number
+        sentiment_scores:
+          type: array
+          items:
+            $ref: '#/components/schemas/retrieve_all_for_media_sentiment_scores'
+      example:
+        id: id
+        average_magnitude: 0.8008281904610115
+        sentiment_scores:
+        - date: 1
+          score: 6.027456183070403
+          id: id
+          text: text
+        - date: 1
+          score: 6.027456183070403
+          id: id
+          text: text
+
