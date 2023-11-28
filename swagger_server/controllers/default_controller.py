@@ -133,7 +133,6 @@ def get_analysis_range_post(media_id=None, start_time=0, end_time=0):  # noqa: E
 
 def get_analysis_range(media_id, start_time, end_time):
     comments = get_data_range(media_id, start_time, end_time)
-    print(comments)
     return create_response_from_comments(media_id, comments)
 
 

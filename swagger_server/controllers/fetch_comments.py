@@ -26,7 +26,7 @@ def fetch_instagram_comments(access_token, media_id):
 
     # get the json response
     data = response.json()
-    print(data)
+
     # To return all the response object
     # return data
 
